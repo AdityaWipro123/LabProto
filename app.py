@@ -127,7 +127,7 @@ with left_col:
         image_path = os.path.join(base_path, image_filename)
         if os.path.exists(image_path):
             if st.checkbox(f"Show {section} Diagram", key=f"{section}_checkbox"):
-                st.image(Image.open(image_path), caption=f"{section} Diagram", use_column_width=True)
+                st.image(Image.open(image_path), caption=f"{section} Diagram", use_container_width=True)
     
 
 # Prediction block
