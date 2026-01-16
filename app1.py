@@ -576,7 +576,7 @@ with right_col:
 #     )
 
 # Button 1: Predict Result
-if st.button("🔍 Predict Result"):
+if st.button("🔍 Predict Resulthgjkhg"):
     st.subheader("Prediction")
 
     # Preprocess input for prediction
