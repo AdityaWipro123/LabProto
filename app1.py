@@ -575,7 +575,7 @@ with right_col:
 #         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 #     )
 
-# # Button 1: Predict Result
+# # # Button 1: Predict Result
 # if st.button("🔍 Predict Resulthgjkhg"):
 #     st.subheader("Prediction")
 
@@ -599,102 +599,102 @@ with right_col:
 #     pred_label = "Failed" if nn_prediction == 1 else "Passed"
 #     result_color = "red" if pred_label == "Failed" else "green"
 
-    # Show UI result
-    st.markdown(f"""
-    <div style="padding: 30px; border-radius: 10px; background-color: {result_color}; color: white; text-align: center;">
-        <h2>{pred_label}</h2>
-    </div>
-    """, unsafe_allow_html=True)
+#     # Show UI result
+#     st.markdown(f"""
+#     <div style="padding: 30px; border-radius: 10px; background-color: {result_color}; color: white; text-align: center;">
+#         <h2>{pred_label}</h2>
+#     </div>
+#     """, unsafe_allow_html=True)
 
-    # Save prediction in session
-    st.session_state.prediction = pred_label
+#     # Save prediction in session
+#     st.session_state.prediction = pred_label
 
-    # Compute distances and neighbors
-    from sklearn.metrics.pairwise import euclidean_distances
-    distances = euclidean_distances(X_processed[nn_features], input_processed.values).flatten()
-    top_k_indices = distances.argsort()[:k]
-    neighbor_df = data.iloc[top_k_indices]
+#     # Compute distances and neighbors
+#     from sklearn.metrics.pairwise import euclidean_distances
+#     distances = euclidean_distances(X_processed[nn_features], input_processed.values).flatten()
+#     top_k_indices = distances.argsort()[:k]
+#     neighbor_df = data.iloc[top_k_indices]
 
-    selected_cols = ['Component', 'Cushioning', 'Working Pressure', 'STROKE', 'BORE', 'ROD DIA', 'Test_Pressure',
-                     'Target', 'Results', 'Part_Failed', 'Completed_Cycles', 'Report_No']
-    neighbor_df_final = neighbor_df[selected_cols] if all(col in neighbor_df.columns for col in selected_cols) else neighbor_df
+#     selected_cols = ['Component', 'Cushioning', 'Working Pressure', 'STROKE', 'BORE', 'ROD DIA', 'Test_Pressure',
+#                      'Target', 'Results', 'Part_Failed', 'Completed_Cycles', 'Report_No']
+#     neighbor_df_final = neighbor_df[selected_cols] if all(col in neighbor_df.columns for col in selected_cols) else neighbor_df
 
-    # Show in UI
-    tab1, tab2 = st.tabs(["✅ Passed", "❌ Failed"])
-    with tab1:
-        passed = neighbor_df_final[neighbor_df_final['Results'] == 'Passed']
-        st.write(f"**{len(passed)} Passed Neighbors:**")
-        st.dataframe(passed)
+#     # Show in UI
+#     tab1, tab2 = st.tabs(["✅ Passed", "❌ Failed"])
+#     with tab1:
+#         passed = neighbor_df_final[neighbor_df_final['Results'] == 'Passed']
+#         st.write(f"**{len(passed)} Passed Neighbors:**")
+#         st.dataframe(passed)
 
-    with tab2:
-        failed = neighbor_df_final[neighbor_df_final['Results'] == 'Failed']
-        st.write(f"**{len(failed)} Failed Neighbors:**")
-        st.dataframe(failed)
+#     with tab2:
+#         failed = neighbor_df_final[neighbor_df_final['Results'] == 'Failed']
+#         st.write(f"**{len(failed)} Failed Neighbors:**")
+#         st.dataframe(failed)
 
-    # Save neighbors and input for export
-    st.session_state.input_dict = input_dict.copy()
-    st.session_state.fos_summary = {
-        "Parameter": [
-            "Rod_Axial_FOS", "Rod_Shear_FOS", "Rod_Buckling_FOS",
-            "Eye_Thickness_FOS", "Leasteye_Thickness_FOS", "Eye_Shear_FOS",
-            "Piston_Axial_FOS", "Piston_Shear_FOS",
-            "Tube_Axial_FOS", "Tube_Circum_FOS",
-            "CEC_Tensile_FOS", "CEC_Shear_FOS",
-            "HEC_Tensile_FOS", "HEC_Shear_FOS",
-            "Tube_CECWeld_FOS", "HECsideHole_Circum_FOS", "CECsideHole_Circum_FOS"
-        ],
-        "Calculated Value": [
-            Rod_Axial_FOS, Rod_Shear_FOS, Rod_Buckling_FOS,
-            Eye_Thickness_FOS, Least_Eye_FOS, Eye_Shear_FOS,
-            Piston_Axial_FOS, Piston_Shear_FOS,
-            Tube_Axial_FOS, Tube_Circum_FOS,
-            CEC_Tensile_FOS, CEC_Shear_FOS,
-            HEC_Tensile_FOS, HEC_Shear_FOS,
-            Tube_CECWeld_FOS, Port_Circum_HEC, Port_Circum_CEC
-        ],
-        "Desired Value": [
-            4, 7, 4, 4, 4, 7, 4, 7, 4, 2, 4, 7, 4, 7, 7, 2, 2
-        ]
-    }
-    st.session_state.neighbor_df = neighbor_df_final
+#     # Save neighbors and input for export
+#     st.session_state.input_dict = input_dict.copy()
+#     st.session_state.fos_summary = {
+#         "Parameter": [
+#             "Rod_Axial_FOS", "Rod_Shear_FOS", "Rod_Buckling_FOS",
+#             "Eye_Thickness_FOS", "Leasteye_Thickness_FOS", "Eye_Shear_FOS",
+#             "Piston_Axial_FOS", "Piston_Shear_FOS",
+#             "Tube_Axial_FOS", "Tube_Circum_FOS",
+#             "CEC_Tensile_FOS", "CEC_Shear_FOS",
+#             "HEC_Tensile_FOS", "HEC_Shear_FOS",
+#             "Tube_CECWeld_FOS", "HECsideHole_Circum_FOS", "CECsideHole_Circum_FOS"
+#         ],
+#         "Calculated Value": [
+#             Rod_Axial_FOS, Rod_Shear_FOS, Rod_Buckling_FOS,
+#             Eye_Thickness_FOS, Least_Eye_FOS, Eye_Shear_FOS,
+#             Piston_Axial_FOS, Piston_Shear_FOS,
+#             Tube_Axial_FOS, Tube_Circum_FOS,
+#             CEC_Tensile_FOS, CEC_Shear_FOS,
+#             HEC_Tensile_FOS, HEC_Shear_FOS,
+#             Tube_CECWeld_FOS, Port_Circum_HEC, Port_Circum_CEC
+#         ],
+#         "Desired Value": [
+#             4, 7, 4, 4, 4, 7, 4, 7, 4, 2, 4, 7, 4, 7, 7, 2, 2
+#         ]
+#     }
+#     st.session_state.neighbor_df = neighbor_df_final
 
-if 'prediction' in st.session_state:
-    if st.button("📤 Export Report to Excel"):
-        input_dict_export = st.session_state.input_dict.copy()
-        input_dict_export["Prediction_Result"] = st.session_state.prediction
-        cylinder_df = pd.DataFrame(list(input_dict_export.items()), columns=["Parameter", "Value"])
+# if 'prediction' in st.session_state:
+#     if st.button("📤 Export Report to Excel"):
+#         input_dict_export = st.session_state.input_dict.copy()
+#         input_dict_export["Prediction_Result"] = st.session_state.prediction
+#         cylinder_df = pd.DataFrame(list(input_dict_export.items()), columns=["Parameter", "Value"])
 
-        fos_df = pd.DataFrame(st.session_state.fos_summary)
-        neighbor_df = st.session_state.neighbor_df.copy()
+#         fos_df = pd.DataFrame(st.session_state.fos_summary)
+#         neighbor_df = st.session_state.neighbor_df.copy()
 
-        # Excel file
-        import io
-        excel_buffer = io.BytesIO()
-        with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
-            workbook = writer.book
-            header_fmt = workbook.add_format({'bold': True, 'bg_color': '#D9E1F2'})
+#         # Excel file
+#         import io
+#         excel_buffer = io.BytesIO()
+#         with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
+#             workbook = writer.book
+#             header_fmt = workbook.add_format({'bold': True, 'bg_color': '#D9E1F2'})
 
-            # FOS Summary
-            fos_df.to_excel(writer, sheet_name="FOS Summary", index=False)
-            for col_num, value in enumerate(fos_df.columns.values):
-                writer.sheets["FOS Summary"].write(0, col_num, value, header_fmt)
+#             # FOS Summary
+#             fos_df.to_excel(writer, sheet_name="FOS Summary", index=False)
+#             for col_num, value in enumerate(fos_df.columns.values):
+#                 writer.sheets["FOS Summary"].write(0, col_num, value, header_fmt)
 
-            # Cylinder Details
-            cylinder_df.to_excel(writer, sheet_name="Cylinder Details", index=False)
-            writer.sheets["Cylinder Details"].write(0, 0, "Cylinder Details", header_fmt)
+#             # Cylinder Details
+#             cylinder_df.to_excel(writer, sheet_name="Cylinder Details", index=False)
+#             writer.sheets["Cylinder Details"].write(0, 0, "Cylinder Details", header_fmt)
 
-            # Nearest Neighbors
-            neighbor_df.to_excel(writer, sheet_name="Passed-Failed Neighbors", index=False)
-            writer.sheets["Passed-Failed Neighbors"].write(0, 0, "Nearest Neighbors", header_fmt)
+#             # Nearest Neighbors
+#             neighbor_df.to_excel(writer, sheet_name="Passed-Failed Neighbors", index=False)
+#             writer.sheets["Passed-Failed Neighbors"].write(0, 0, "Nearest Neighbors", header_fmt)
 
-        excel_buffer.seek(0)
-        st.download_button(
-            label="📥 Download Full Excel Report",
-            data=excel_buffer,
-            file_name="Cylinder_FOS_Report.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-else:
-    st.warning("")
+#         excel_buffer.seek(0)
+#         st.download_button(
+#             label="📥 Download Full Excel Report",
+#             data=excel_buffer,
+#             file_name="Cylinder_FOS_Report.xlsx",
+#             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+#         )
+# else:
+#     st.warning("")
 
 
