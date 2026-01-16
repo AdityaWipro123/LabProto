@@ -18,9 +18,9 @@ groupings = {
     "CEC-Tube weld": ['CEC-Tube_weld_Strength(Kg/sqmm)', 'CEC-Tube_weld_Radius(R)', 'CEC-Tube_weld_angle(a)', 'CEC-Tube_weld_depth(d)'],
     "HEC Port": ['Port_hole_dia_RHS(h_r)', 'Port_SpotFace_dia_RHS(d_r)', 'Port_spotface_width_RHS(w_r)'],
     "CEC port": ['Where(CEC_or_Tube)', 'port_hole_dia_near_CEC(h_l)', 'Port_Spot_Face_dia_near_CEC(d_l)'],
-    "Test Parameters": ['Test_Pressure', 'Target']
+    
 }
-
+# "Test Parameters": ['Test_Pressure', 'Target']
 # Streamlit page setup
 st.set_page_config(page_title="app", layout="wide")
 
