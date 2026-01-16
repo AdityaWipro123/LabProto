@@ -575,29 +575,29 @@ with right_col:
 #         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 #     )
 
-# Button 1: Predict Result
-if st.button("🔍 Predict Resulthgjkhg"):
-    st.subheader("Prediction")
+# # Button 1: Predict Result
+# if st.button("🔍 Predict Resulthgjkhg"):
+#     st.subheader("Prediction")
 
-    # Preprocess input for prediction
-    input_df = pd.DataFrame([input_dict])
-    input_cat = ohe.transform(input_df[cat_cols])
-    cat_feature_names = ohe.get_feature_names_out(cat_cols)
-    X_cat_df = pd.DataFrame(input_cat, columns=cat_feature_names, index=input_df.index)
-    X_cat_df = X_cat_df.drop(columns=[cat_feature_names[0], cat_feature_names[-1]])
+#     # Preprocess input for prediction
+#     input_df = pd.DataFrame([input_dict])
+#     input_cat = ohe.transform(input_df[cat_cols])
+#     cat_feature_names = ohe.get_feature_names_out(cat_cols)
+#     X_cat_df = pd.DataFrame(input_cat, columns=cat_feature_names, index=input_df.index)
+#     X_cat_df = X_cat_df.drop(columns=[cat_feature_names[0], cat_feature_names[-1]])
 
-    input_num = scaler.transform(input_df[num_cols])
-    X_num_df = pd.DataFrame(input_num, columns=num_cols, index=input_df.index)
-    input_processed = pd.concat([X_num_df, X_cat_df], axis=1)
-    for col in nn_features:
-        if col not in input_processed.columns:
-            input_processed[col] = 0
-    input_processed = input_processed[nn_features]
+#     input_num = scaler.transform(input_df[num_cols])
+#     X_num_df = pd.DataFrame(input_num, columns=num_cols, index=input_df.index)
+#     input_processed = pd.concat([X_num_df, X_cat_df], axis=1)
+#     for col in nn_features:
+#         if col not in input_processed.columns:
+#             input_processed[col] = 0
+#     input_processed = input_processed[nn_features]
 
-    # Predict
-    nn_prediction = nn_model.predict(input_processed)[0]
-    pred_label = "Failed" if nn_prediction == 1 else "Passed"
-    result_color = "red" if pred_label == "Failed" else "green"
+#     # Predict
+#     nn_prediction = nn_model.predict(input_processed)[0]
+#     pred_label = "Failed" if nn_prediction == 1 else "Passed"
+#     result_color = "red" if pred_label == "Failed" else "green"
 
     # Show UI result
     st.markdown(f"""
