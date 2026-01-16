@@ -46,7 +46,7 @@ with open(logo_path, "rb") as image_file:
 st.markdown(f"""
     <div style='text-align: center;'>
         <img src="data:image/jpeg;base64,{encoded_image}" width="600"/>
-        <h1 style='color: #003366;'>Product Validation using AI</h1>
+        # <h1 style='color: #003366;'>Product Validation using AI</h1>
 
     </div>
 """, unsafe_allow_html=True)
